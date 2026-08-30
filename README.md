@@ -202,4 +202,6 @@ PHP 8.2+ · Laravel 12 or 13
 
 ## License
 
-MIT. Built by [Zain Ul Abdain](https://github.com/zain-ul-abdain) — backend engineer working on payments and authorization infrastructure.
+MIT. Built by **Zain Ul Abdain** — backend engineer working on payments and authorization infrastructure.
+
+[Portfolio](https://zain-ul-abdain.github.io) · [GitHub](https://github.com/zain-ul-abdain) · [LinkedIn](https://linkedin.com/in/zain-ul-abdain)
