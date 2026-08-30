@@ -1,0 +1,59 @@
+{
+    "name": "zain-ul-abdain/laravel-route-permissions",
+    "description": "Scaffold Laravel permissions from your named routes, then enforce them. Roles, direct permissions, cached lookups, Gate integration, and optional Passport scope sync.",
+    "keywords": ["laravel", "permissions", "rbac", "roles", "authorization", "passport", "scopes"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zain Ul Abdain",
+            "email": "zainburfat112@gmail.com",
+            "homepage": "https://github.com/zain-ul-abdain",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/zain-ul-abdain/laravel-route-permissions",
+    "support": {
+        "issues": "https://github.com/zain-ul-abdain/laravel-route-permissions/issues",
+        "source": "https://github.com/zain-ul-abdain/laravel-route-permissions"
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/console": "^12.0|^13.0",
+        "illuminate/contracts": "^12.0|^13.0",
+        "illuminate/database": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.13",
+        "orchestra/testbench": "^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0"
+    },
+    "suggest": {
+        "laravel/passport": "Enables automatic synchronisation of permission names into OAuth token scopes (^13.0)."
+    },
+    "autoload": {
+        "psr-4": {
+            "Zain\\RoutePermissions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zain\\RoutePermissions\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zain\\RoutePermissions\\RoutePermissionsServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
