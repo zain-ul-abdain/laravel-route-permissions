@@ -183,7 +183,9 @@ Passport is a `suggest`, not a requirement. The integration is guarded three way
 php artisan vendor:publish --tag=route-permissions-config
 ```
 
-Table names, the user model, cache behaviour, a super-admin role, and scan include/exclude patterns are all configurable. Auth scaffolding routes (`login`, `register`, `password.*`) and common package routes (Horizon, Telescope, Sanctum) are excluded from scanning by default.
+Table names, the user model, cache behaviour, a super-admin role, the guard, the redirect target, and scan include/exclude patterns are all configurable.
+
+Excluded from scanning by default: auth scaffolding (`login`, `register`, `password.*`, `verification.*`), Laravel's own `storage.*` file-serving routes, and common first-party packages (Horizon, Telescope, Pulse, Sanctum, Passport, Livewire, Nova, Filament, Debugbar).
 
 ---
 
@@ -209,6 +211,10 @@ docker compose run --rm test         # sqlite
 docker compose run --rm test-pgsql   # postgres
 docker compose run --rm test-mysql   # mysql
 ```
+
+Separately, an **18-test integration suite** runs against a real Laravel application with the package installed from Packagist — covering service-provider discovery, migrations landing in the host app, `permissions:sync` against the host's actual route table, middleware aliases on real routes, cache invalidation, and pruning.
+
+That suite earns its keep: it's what caught `permissions:sync` scaffolding permissions for Laravel's own `storage.*` routes, which no unit test would have surfaced because it only appears when the command meets a real route table.
 
 ---
 
