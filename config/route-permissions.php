@@ -79,4 +79,21 @@ return [
      */
     'super_admin_role' => null,
 
+    /*
+     * The guard the middleware resolves the user through. Null uses the
+     * request's default guard, which is right for most applications; set it
+     * when admin and customer authentication are separate guards.
+     */
+    'guard' => null,
+
+    /*
+     * Where to send a denied browser request.
+     *
+     * A bare 403 is correct for an API and poor for a browser - someone who
+     * followed a link to something they cannot see should land on a page that
+     * explains it. Set a route name here and non-JSON requests redirect there
+     * instead; JSON requests always get 403.
+     */
+    'redirect_to' => null,
+
 ];

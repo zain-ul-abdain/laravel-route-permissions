@@ -5,26 +5,34 @@ namespace Zain\RoutePermissions\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Zain\RoutePermissions\Middleware\Concerns\Authorizes;
 
 /**
- * Explicit role check: role:admin,editor  (ANY of the listed roles)
+ * Explicit role check — ANY of the listed roles.
+ *
+ *     ->middleware('role:admin,editor')
+ *     ->middleware('role:admin|editor')
  */
 class EnsureRole
 {
+    use Authorizes;
+
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        $user = $request->user();
+        $user = $this->resolveUser($request);
 
         if ($user === null) {
-            abort(401, 'Unauthenticated.');
+            $this->denyUnauthenticated($request);
         }
+
+        $roles = $this->names($roles);
 
         if ($roles === []) {
             abort(500, 'The role middleware requires at least one role name.');
         }
 
         if (! $user->hasAnyRole($roles)) {
-            abort(403, 'You do not have permission to perform this action.');
+            return $this->denyForbidden($request);
         }
 
         return $next($request);
