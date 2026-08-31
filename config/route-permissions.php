@@ -43,11 +43,19 @@ return [
         // Only routes whose name matches one of these patterns are scanned.
         'include' => ['*'],
 
-        // Patterns excluded even when they match `include`.
+        /*
+         * Patterns excluded even when they match `include`.
+         *
+         * Covers auth scaffolding, common first-party packages, and Laravel's
+         * own internal routes - `storage.*` in particular serves files from the
+         * local disk and has no business being an authorization decision you
+         * have to grant to everyone.
+         */
         'exclude' => [
             'login', 'logout', 'register', 'password.*', 'verification.*',
+            'storage.*',
             'horizon.*', 'telescope.*', 'sanctum.*', 'passport.*', 'ignition.*',
-            'livewire.*', 'debugbar.*',
+            'livewire.*', 'debugbar.*', 'pulse.*', 'nova.*', 'filament.*',
         ],
 
         // Middleware groups to restrict scanning to. Empty = no restriction.

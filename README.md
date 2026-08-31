@@ -77,6 +77,30 @@ Route::get('/admin', ...)->middleware(['auth', 'role:admin']);
 
 A guest gets **401**. An authenticated user without the permission gets **403**. A route with no name throws — failing loudly beats a silent allow.
 
+Roles and permissions both accept the pipe form as well, matching the convention you've probably already written: `role:admin|editor` and `role:admin,editor` behave identically.
+
+### Denying a browser politely
+
+A bare 403 is right for an API and poor for a browser — someone who followed a link to something they can't see should land on a page that explains it.
+
+```php
+'redirect_to' => 'access.denied',
+```
+
+Non-JSON requests then redirect there; JSON requests still get 403, because an API client can't follow a redirect meaningfully.
+
+> **Leave that route unprotected.** If your denial page is itself behind `route.permission`, a denied user redirects to a page that denies them, and you have an infinite loop.
+
+### Separate guards
+
+If admin and customer authentication use different guards, name the one the middleware should resolve through:
+
+```php
+'guard' => 'admin',
+```
+
+Null — the default — uses the request's normal guard, which is right for most applications.
+
 ### Granting
 
 ```php
@@ -178,7 +202,7 @@ composer install
 vendor/bin/pest
 ```
 
-32 tests. **The suite runs against SQLite, PostgreSQL and MySQL** — behaviour differs by engine, and a SQLite-only suite will pass while hiding real failures. With Docker:
+39 tests. **The suite runs against SQLite, PostgreSQL and MySQL** — behaviour differs by engine, and a SQLite-only suite will pass while hiding real failures. With Docker:
 
 ```bash
 docker compose run --rm test         # sqlite
